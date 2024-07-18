@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>datepicker</title>
+ 
+</head>
+<body>
+    <label for="datepicker">Select a date:</label>
+<input type="date" id="datepicker" name="datepicker">
+
+
+    <script src="script.js">
+  document.addEventListener('DOMContentLoaded', function() {
+    const datepicker = document.getElementById('datepicker');
+
+    datepicker.addEventListener('change', function() {
+        const selectedDate = datepicker.value;
+        console.log('Selected date:', selectedDate);
+        // Perform actions based on selected date
+    });
+});
+
+  </script>
+</body>
+</html>
