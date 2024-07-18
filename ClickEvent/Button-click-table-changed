@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <style>
+     table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+  </style>
+  <body>
+      <button id="bseBtn">BSE</button>
+    <button id="nseBtn">NSE</button>
+    <div id="tableContainer"></div>
+      <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const bseBtn = document.getElementById('bseBtn');
+    const nseBtn = document.getElementById('nseBtn');
+    const tableContainer = document.getElementById('tableContainer');
+
+    const bseData = [
+        { symbol: 'TCS', price: '3500' },
+        { symbol: 'Reliance', price: '2100' },
+        // Add more BSE data here
+    ];
+
+    const nseData = [
+        { symbol: 'Infosys', price: '1600' },
+        { symbol: 'HDFC', price: '2500' },
+        // Add more NSE data here
+    ];
+
+    function createTable(data) {
+        let table = '<table><tr><th>Symbol</th><th>Price</th></tr>';
+        //array.forEach(callback(currentValue, index, array), thisArg);
+
+        data.forEach(row => {
+            table += `<tr><td>${row.symbol}</td><td>${row.price}</td></tr>`;
+        });
+        table += '</table>';
+        return table;
+    }
+
+    function showTable(data) {
+        tableContainer.innerHTML = createTable(data);
+    }
+
+    // Show BSE data by default
+    showTable(bseData);
+
+    bseBtn.addEventListener('click', function() {
+        showTable(bseData);
+    });
+
+    nseBtn.addEventListener('click', function() {
+        showTable(nseData);
+    });
+});
+
+</script>
+  </body>
+</html>
