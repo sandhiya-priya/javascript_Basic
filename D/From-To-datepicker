@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Range Picker Example</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .calendar-container {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .calendar-container input {
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calendar-container">
+    <label for="fromDate">From:</label>
+    <input type="text" id="fromDate" placeholder="Select start date">
+
+    <label for="toDate">To:</label>
+    <input type="text" id="toDate" placeholder="Select end date">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr('#fromDate', {
+            dateFormat: 'Y-m-d', // Format of the date
+            onClose: function(selectedDates, dateStr, instance) {
+                // Ensure 'toDate' cannot be before 'fromDate'
+                if (dateStr !== '') {
+                    flatpickr('#toDate', {
+                        minDate: dateStr // Set minimum date for 'toDate'
+                    });
+                }
+            }
+        });
+
+        flatpickr('#toDate', {
+            dateFormat: 'Y-m-d', // Format of the date
+            onClose: function(selectedDates, dateStr, instance) {
+                // Ensure 'fromDate' cannot be after 'toDate'
+                if (dateStr !== '') {
+                    flatpickr('#fromDate', {
+                        maxDate: dateStr // Set maximum date for 'fromDate'
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
