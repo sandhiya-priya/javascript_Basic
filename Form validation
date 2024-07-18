@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation Example</title>
+    <style>
+        .error {
+            border: 2px solid red;
+        }
+        .valid {
+            border: 2px solid green;
+        }
+        .message {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="validationForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <span id="nameMessage" class="message">Name is required.</span><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        <span id="emailMessage" class="message">Enter a valid email.</span><br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone">
+        <span id="phoneMessage" class="message">Enter a valid 10-digit phone number.</span><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age">
+        <span id="ageMessage" class="message">Enter a valid age (18-40).</span><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script src="script.js">
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('validationForm');
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const phone = document.getElementById('phone');
+    const age = document.getElementById('age');
+
+    const nameMessage = document.getElementById('nameMessage');
+    const emailMessage = document.getElementById('emailMessage');
+    const phoneMessage = document.getElementById('phoneMessage');
+    const ageMessage = document.getElementById('ageMessage');
+
+    // Validation functions
+    function validateName() {
+        if (name.value.trim() === '') {
+            name.classList.add('error');
+            name.classList.remove('valid');
+            nameMessage.style.display = 'inline';
+            return false;
+        } else {
+            name.classList.remove('error');
+            name.classList.add('valid');
+            nameMessage.style.display = 'none';
+            return true;
+        }
+    }
+
+    function validateEmail() {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.match(emailPattern)) {
+            email.classList.add('error');
+            emailMessage.style.display = 'inline';
+            return false;
+        } else {
+            email.classList.remove('error');
+            email.classList.add('valid');
+            emailMessage.style.display = 'none';
+            return true;
+        }
+    }
+
+    function validatePhone() {
+        const phonePattern = /^\d{10}$/;
+        if (!phone.value.match(phonePattern)) {
+            phone.classList.add('error');
+            phoneMessage.style.display = 'inline';
+            return false;
+        } else {
+            phone.classList.remove('error');
+            phone.classList.add('valid');
+            phoneMessage.style.display = 'none';
+            return true;
+        }
+    }
+
+    function validateAge() {
+        const ageValue = parseInt(age.value, 10);
+        if (isNaN(ageValue) || ageValue < 18 || ageValue > 40) {
+            age.classList.add('error');
+            ageMessage.style.display = 'inline';
+            return false;
+        } else {
+            age.classList.remove('error');
+            age.classList.add('valid');
+            ageMessage.style.display = 'none';
+            return true;
+        }
+    }
+
+    // Event listeners for validation
+    name.addEventListener('blur', validateName);
+    email.addEventListener('blur', validateEmail);
+    phone.addEventListener('blur', validatePhone);
+    age.addEventListener('blur', validateAge);
+
+    // Event listeners for mouseover and mouseout
+    name.addEventListener('mouseover', function() {
+        if (name.value.trim() === '') {
+            nameMessage.style.display = 'inline';
+        }
+    });
+    name.addEventListener('mouseout', function() {
+        nameMessage.style.display = 'none';
+    });
+
+    email.addEventListener('mouseover', function() {
+        if (email.value.trim() === '') {
+            emailMessage.style.display = 'inline';
+        }
+    });
+    email.addEventListener('mouseout', function() {
+        emailMessage.style.display = 'none';
+    });
+
+    phone.addEventListener('mouseover', function() {
+        if (phone.value.trim() === '') {
+            phoneMessage.style.display = 'inline';
+        }
+    });
+    phone.addEventListener('mouseout', function() {
+        phoneMessage.style.display = 'none';
+    });
+
+    age.addEventListener('mouseover', function() {
+        if (age.value.trim() === '') {
+            ageMessage.style.display = 'inline';
+        }
+    });
+    age.addEventListener('mouseout', function() {
+        ageMessage.style.display = 'none';
+    });
+
+    // Event listeners for focus
+    name.addEventListener('click', function() {
+        name.focus();
+    });
+
+    email.addEventListener('click', function() {
+        email.focus();
+    });
+
+    phone.addEventListener('click', function() {
+        phone.focus();
+    });
+
+    age.addEventListener('click', function() {
+        age.focus();
+    });
+
+    // Form submission
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const isNameValid = validateName();
+        const isEmailValid = validateEmail();
+        const isPhoneValid = validatePhone();
+        const isAgeValid = validateAge();
+
+        if (isNameValid && isEmailValid && isPhoneValid && isAgeValid) {
+            alert('Form submitted successfully!');
+        } else {
+            alert('Please correct the errors in the form.');
+        }
+    });
+});
+</script>
+</body>
+</html>
